@@ -24,6 +24,7 @@ public class Startup.Widgets.AppRow : Gtk.ListBoxRow {
 
     public Entity.AppInfo app_info { get; construct; }
 
+    private Gtk.LinkButton edit_button;
     private Gtk.Switch active_switch;
 
     public AppRow (Entity.AppInfo app_info) {
@@ -45,6 +46,15 @@ public class Startup.Widgets.AppRow : Gtk.ListBoxRow {
         app_comment.hexpand = true;
         app_comment.xalign = 0;
 
+        edit_button = new Gtk.LinkButton ("");
+        edit_button.always_show_image = true;
+        edit_button.image = new Gtk.Image.from_icon_name ("view-more-horizontal-symbolic", Gtk.IconSize.MENU);
+        edit_button.label = null;
+        edit_button.margin_end = 3;
+        edit_button.show_all ();
+        edit_button.no_show_all = true;
+        edit_button.visible = true;
+
         active_switch = new Gtk.Switch ();
         active_switch.tooltip_text = _("Launch %s on startup").printf (app_info.name);
         active_switch.valign = Gtk.Align.CENTER;
@@ -57,7 +67,8 @@ public class Startup.Widgets.AppRow : Gtk.ListBoxRow {
         main_grid.attach (image, 0, 0, 1, 2);
         main_grid.attach (app_name, 1, 0, 1, 1);
         main_grid.attach (app_comment, 1, 1, 1, 1);
-        main_grid.attach (active_switch, 2, 0, 1, 2);
+        main_grid.attach (edit_button, 2, 0, 1, 2);
+        main_grid.attach (active_switch, 3, 0, 1, 2);
 
         add (main_grid);
         show_all ();
